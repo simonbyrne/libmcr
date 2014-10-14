@@ -1,0 +1,202 @@
+
+#pragma ident "@(#)README 1.12 04/04/27 SMI"
+
+/*
+ * libmcr: Correctly Rounded libm
+ * VERSION : 0.9
+ *
+ * Floating Point Group
+ * Sun Microsystems Inc.
+ * February 2004
+ *
+ * Comments/Corrections To : libmcr-comments-2004 AT sun.com
+ */
+
+
+Copyright
+=========
+Libmcr is protected by Sun Microsystems' Inc. Public
+License.  The license is reproduced in total
+at the bottom of this Readme file.
+
+
+Library Entry Points
+====================
+	double exp(double);
+	double log(double);
+	double pow(double,double);
+	double sin(double);
+	double cos(double);
+	double tan(double);
+	double atan(double);
+
+	For a full description, refer to ./docs/libmcr.man
+
+
+LIBMCR
+======
+Included in this distribution of libmcr, Sun's correctly rounded
+implementation of seven libm functions, are the source files necessary
+to build the library, and test drivers to test the functions with
+selected test vectors.
+
+A top-level make is supplied to build both the library and the
+test codes.  Information about configuration related modifications,
+building the library and tests, and running the tests are included
+later in this file.
+
+A general algorithm description is supplied in the file
+
+	./docs/overview
+
+along with a formatted man page
+
+	./docs/libmcr.man
+
+that can be installed into your man environment.
+
+libmcr is provided to the public under copyright protection.  The
+copyright notice is include at the end of this file.
+
+We would appreciate hearing from you if you have any comments, or
+find any bugs in the code or have any issues with the algorithms used.
+Send the TIMESTAMP information in the file "VERDATE" or the VERSION #
+listed at the top of this file.
+
+You can send email to
+
+	libmcr-comments-04 AT sun.com
+
+
+
+Directory Structure & Files
+===========================
+
+	Directory/File Name	Description
+	+++++++++++++++++++	+++++++++++
+	copyright		copyright notice
+	./docs			contents: documents for libmcr
+	./include		contents: include files for libmcr
+	./lib			directory to contain libmcr.a
+	Makefile		main file to compile and build libmcr.a
+	README			this file
+	./src			contents: source files for libmcr
+	./tests			contents:
+				1) components to build tests for libmcr
+				2) test vectors to test selected hard cases.
+	VERDATE			date/time when this release was created
+
+
+Build NOTES
+===========
+	gcc
+	Care must be taken when compiling with gcc.  Certain optimization
+	levels require additional flags be set.  The following list contains
+	combinations that have been used.  The list is not exhaustive.
+
+	SOLARIS
+	Arch	gcc ver	Options			targets
+	====	=======	=================	=======
+	i386	all	-g			./src
+	i386	2.95.3	-O -ffloat-store	./src
+	i386	3.2.3	-O -ffloat-store	./src
+	i386	3.3.2	-O -ffloat-store	./src
+	i386		-O[23s]			./src
+			-ffloat-store
+			-no-strict-aliasing
+	i386		-g			./tests
+
+	sparc	all	-g			./src & ./tests
+	sparc	all	-O			./src & ./tests
+	sparc	2.95.3	-O[23s]			./src
+			-fno-strict-aliasing
+			-fno-gcse
+			-fno-rerun-cse-after-loop
+
+	LINUX
+	Arch	gcc ver	Options			targets
+	====	=======	=================	=======
+	i386	3.2.2	-g			./src & ./tests
+	i386	3.2.2	-O -fno-inline
+			-ffloat-store
+	i386	3.2.2	-O1 -fno-inline
+			-ffloat-store
+
+	NOTE:  compiling with options -O[23s]  result in Failures.
+		Optimizations at this level are too aggressive.
+
+
+File Modifications Before 1st Build
+===================================
+
+	Makefile
+	========
+
+	CC	: location of c compiler [default: cc]
+
+	OPT	: optimization level [default: -g]
+
+	CFLAGS	: compilation flags (default: ""]
+
+		Note when using gcc, several flags are required.
+		Refer to the Build Notes just above.
+
+	
+Building the library: libmcr.a
+==============================
+
+	make clobber
+	make src
+
+
+Building and running supplied tests
+===================================
+
+	make tests
+	make runtests
+
+
+=========================
+Sun Public License
+=========================
+
+/* ************************************************************ */
+/*
+ * Copyright (c) 2002 Sun Microsystems, Inc. All  Rights Reserved.
+ *
+ * Redistribution  and use in  source  and binary  forms,  with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
+ *
+ *  -Redistribution of source code must retain the above copyright
+ *   notice, this list of conditions and the following disclaimer.
+ *
+ *  -Redistribution  in  binary  form  must  reproduce  the  above
+ *   copyright notice,  this list of conditions and  the following
+ *   disclaimer  in  the  documentation  and/or  other   materials
+ *   provided with the distribution.
+ *
+ * Neither  the  name  of  Sun Microsystems, Inc.  or the names of
+ * contributors may be used to endorse or promote products derived
+ * from this  software without  specific prior written permission.
+ *
+ * This  software  is provided  "AS IS," without a warranty of any
+ * kind.  ALL EXPRESS  OR IMPLIED  CONDITIONS, REPRESENTATIONS AND
+ * WARRANTIES,  INCLUDING ANY IMPLIED WARRANTY OF MERCHANTABILITY,
+ * FITNESS  FOR  A  PARTICULAR  PURPOSE  OR  NON-INFRINGEMENT, ARE
+ * HEREBY  EXCLUDED.    SUN MICROSYSTEMS, INC.  ("SUN")   AND  ITS
+ * LICENSORS  SHALL  NOT  BE  LIABLE  FOR  ANY DAMAGES SUFFERED BY
+ * LICENSEE  AS A  RESULT OF USING, MODIFYING OR DISTRIBUTING THIS
+ * SOFTWARE  OR  ITS  DERIVATIVES.   IN  NO  EVENT WILL SUN OR ITS
+ * LICENSORS BE LIABLE  FOR  ANY LOST REVENUE,  PROFIT OR DATA, OR
+ * FOR DIRECT,  INDIRECT,  SPECIAL,  CONSEQUENTIAL,  INCIDENTAL OR
+ * PUNITIVE DAMAGES,  HOWEVER CAUSED AND  REGARDLESS OF THE THEORY
+ * OF LIABILITY,  ARISING  OUT  OF  THE USE OF OR INABILITY TO USE
+ * THIS SOFTWARE,  EVEN IF SUN HAS BEEN ADVISED OF THE POSSIBILITY
+ * OF SUCH DAMAGES.
+ *
+ * You acknowledge that this software is not designed, licensed or
+ * intended  for  use  in  the  design, construction, operation or
+ * maintenance of any nuclear facility.
+ *								*/
+/* ************************************************************ */
